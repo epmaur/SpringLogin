@@ -10,6 +10,7 @@ import java.util.List;
 public interface TrainingRepository extends CrudRepository<Training, Integer> {
 
     public List<Training> findAll();
+    public List<Training> findByCreatorOrderByDateDesc(int creator);
     public List<Training> findByTypeOrderByDateDesc(String type);
     public List<Training> findAllByOrderByDateDesc();
 

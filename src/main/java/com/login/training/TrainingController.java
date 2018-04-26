@@ -23,22 +23,22 @@ public class TrainingController {
         this.trainingService = trainingService;
     }
 
-    /*
+
     @RequestMapping(value="/trainings/add", method= RequestMethod.POST)
     public Training addTraining(@RequestBody Training training) {
-        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        training.setCreator(userService.getUser(userDetails.getUsername()));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserBean user = userRepository.findByEmail(auth.getName());
+        training.setCreator(user.getId());
         return trainingService.addTraining(training);
     }
-    */
+
 
     @CrossOrigin
     @RequestMapping(value="/trainings", method= RequestMethod.GET)
     public List<Training> getAllTrainings() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserBean user = userRepository.findByEmail(auth.getName());
-        System.out.println("USER: " + user.getEmail());
-        List<Training> response = trainingService.getAllTrainings();
+        List<Training> response = trainingService.getAllUserTrainings(user.getId());
         return response;
     }
 

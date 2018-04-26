@@ -3,10 +3,7 @@ package com.login.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,7 +14,9 @@ import org.hibernate.validator.constraints.Email;
 public class UserBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
+
+	@GeneratedValue
+	private int id;
 	@NotNull(message = "Email  cannot be empty")
 	@Email(message = "Email Format is not valid")
 	@Size(min = 3, max = 30, message = "Email can not be empty")
@@ -41,8 +40,15 @@ public class UserBean implements Serializable{
 	private String passwordConfirm;	
 	private String provider;
 	private String image;
-	
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getEmail() {
 		return email;
 	}

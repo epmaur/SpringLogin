@@ -154,7 +154,7 @@
         },
 
         mounted() {
-           
+
             axios.get('/trainings').then(response => {
                 console.log(response.data)
                 this.trainings = response.data

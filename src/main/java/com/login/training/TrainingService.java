@@ -22,6 +22,8 @@ public class TrainingService {
         return trainingRepository.findAllByOrderByDateDesc();
     }
 
+    List<Training> getAllUserTrainings(int id) { return trainingRepository.findByCreatorOrderByDateDesc(id); }
+
     public Long deleteTrainingById(long id) {
         return trainingRepository.deleteById(id);
     }

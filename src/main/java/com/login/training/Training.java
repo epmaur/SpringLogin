@@ -18,9 +18,10 @@ public class Training {
     double time;
     int pulse;
     String comment;
+    int creator;
 
 
-    public Training(int id, String type, String date, double distance, double time, int pulse, String comment){
+    public Training(int id, String type, String date, double distance, double time, int pulse, String comment, int creator){
         this.id = id;
         this.type = type;
         this.date = date;
@@ -28,6 +29,7 @@ public class Training {
         this.time = time;
         this.pulse = pulse;
         this.comment = comment;
+        this.creator = creator;
     }
 
     public Training() {}
@@ -88,6 +90,13 @@ public class Training {
         this.comment = comment;
     }
 
+    public int getCreator() {
+        return creator;
+    }
+
+    public void setCreator(int creator) {
+        this.creator = creator;
+    }
 
     @Override
     public String toString() {
