@@ -58,6 +58,7 @@ public class LoginController {
 	if (bindingResult.hasErrors()) {
 	    return "registration";
 	}
+
 	userBean.setProvider("REGISTRATION");
 	// Save the details in DB
 	if (StringUtils.isNotEmpty(userBean.getPassword())) {
@@ -68,7 +69,7 @@ public class LoginController {
 	autologin.setSecuritycontext(userBean);
 
 	model.addAttribute("loggedInUser", userBean);
-	return "secure/user";
+	return "secure/trainings";
     }
 
     /** If we can't find a user/email combination */

@@ -8,6 +8,17 @@
   text-align: center;
 
 }
+
+.menu {
+  display:flex;
+  justify-content:space-between;
+}
+
+.logout {
+  display: inherit;
+
+}
+
 .login-form .form-control:not(:first-child) {
   margin-top: 5px;
   margin-bottom: 5px;
