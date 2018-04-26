@@ -1,0 +1,22 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.login.config.google.GoogleProperties",
+      "name": "spring.social.google",
+      "type": "com.login.config.google.GoogleProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.login.config.google.GoogleProperties",
+      "name": "spring.social.google.app-id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.login.config.google.GoogleProperties",
+      "name": "spring.social.google.app-secret",
+      "type": "java.lang.String"
+    }
+  ]
+}
