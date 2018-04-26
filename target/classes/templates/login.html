@@ -15,23 +15,11 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://vuejs.org/js/vue.js"></script>
 	<script src="/js/script.js"></script>
-
 </head>
 
 <body>
 
 	<div class="form-group">
-		
-		<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
-			Logged in user: <b><span sec:authentication="name"></span></b> | Roles: <b><span sec:authentication="authorities"></span></b>
-				<form action="#" th:action="@{/logout}" method="post">
-			       <button type="submit"  class="btn btn-danger btn-sm">
-			       <span class="glyphicon glyphicon-log-out"></span>
-			        Log out</button>
-				</form>
-		</div>
-		<br/>
-		
 		<h1>Logi sisse</h1>
 		<h5>Kasutajanime ja parooliga</h5>
 		<form th:action="@{/login}" method="post" class="login-form">
@@ -44,7 +32,7 @@
 		</form>
 		<h5>Google kontoga</h5>
 		<form action="/connect/google" method="POST" class="login-form">
-			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			<input type="hidden" name="scope" value="profile email" />
 			<button type="submit" class="btn btn-danger">
 				Google <span class="fa fa-google-plus"></span>

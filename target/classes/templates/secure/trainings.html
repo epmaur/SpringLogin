@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+    <meta name="_csrf" th:content="${_csrf.token}"/>
     <title>Avaleht</title>
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
@@ -77,14 +78,92 @@
                 </thead>
 
                 <tbody>
-
+                <tr v-for="training in trainings">
+                    <th>{{ training.date }}</th>
+                    <th>{{ training.type }}</th>
+                    <th>{{ training.distance }}</th>
+                    <th>{{ training.time }} </th>
+                    <th>{{ training.pulse }}</th>
+                    <th>{{ training.comment }}</th>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
 <script src="/js/jquery.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#trainings",
+        data: {
+            tab: 0,
+            trainings: [],
+            newTraining: [],
+            oldTraining: [],
+            username : "",
+            url : ""
+        },
+
+        methods: {
+            changeTabs: function(tab) {
+                this.tab = tab;
+            },
+            saveTraining() {
+                url = '/trainings/add';
+                var token = $("meta[name='_csrf']").attr("content");
+                let config = {
+                  headers: {
+                    'X-CSRF-TOKEN': token
+                  }
+                }
+                axios.post(url ,{"type": this.newTraining.type,
+                    "date": this.newTraining.date,"distance": this.newTraining.distance,
+                    "time": this.newTraining.time,"pulse": this.newTraining.pulse,
+                    "comment": this.newTraining.comment}, config)
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(e => {
+                  console.log(e);
+                })
+
+            },
+            findTrainings() {
+                var token = $("meta[name='_csrf']").attr("content");
+                let config = {
+                  headers: {
+                    'X-CSRF-TOKEN': token
+                  }
+                }
+                axios.post('/trainings/params', {"type": this.oldTraining.type, "date": this.oldTraining.date}, config)
+                .then(response => {
+                    this.trainings = response.data
+                    console.log(response.data)
+                })
+                .catch(e => {
+                  console.log(e);
+                })
+            },
+            clearForm() {
+                this.oldTraining.type = "";
+                this.oldTraining.date = "";
+                this.findTrainings();
+
+            }
+
+        },
+
+        mounted() {
+           
+            axios.get('/trainings').then(response => {
+                console.log(response.data)
+                this.trainings = response.data
+            });
+        }
+
+    });
+
+</script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
 

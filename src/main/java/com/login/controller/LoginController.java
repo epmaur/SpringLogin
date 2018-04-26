@@ -5,6 +5,9 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,7 @@ import com.login.autologin.Autologin;
 import com.login.model.UserBean;
 import com.login.repository.UserRepository;
 import com.login.social.providers.GoogleProvider;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
@@ -55,7 +59,7 @@ public class LoginController {
 
     @PostMapping("/registration")
     public String registerUser(HttpServletResponse httpServletResponse, Model model, @Valid UserBean userBean, BindingResult bindingResult) {
-	if (bindingResult.hasErrors()) {
+	    if (bindingResult.hasErrors()) {
 	    return "registration";
 	}
 
@@ -65,18 +69,20 @@ public class LoginController {
 	    userBean.setPassword(bCryptPasswordEncoder.encode(userBean.getPassword()));
 	}
 	userRepository.save(userBean);
-
 	autologin.setSecuritycontext(userBean);
 
 	model.addAttribute("loggedInUser", userBean);
-	return "secure/trainings";
+	    return "secure/trainings";
     }
 
     /** If we can't find a user/email combination */
     @RequestMapping("/login-error")
     public String loginError(Model model) {
-	model.addAttribute("loginError", true);
-	return "login";
+        model.addAttribute("loginError", true);
+        return "login";
     }
+
+
+
 
 }
