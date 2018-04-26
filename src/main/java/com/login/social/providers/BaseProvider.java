@@ -19,9 +19,7 @@ import com.login.repository.UserRepository;
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class BaseProvider {
 
-    private Facebook facebook;
     private Google google;
-    private LinkedIn linkedIn;
     private ConnectionRepository connectionRepository;
 
     @Autowired
@@ -33,11 +31,9 @@ public class BaseProvider {
     @Autowired
     protected Autologin autologin;
 
-    public BaseProvider(Facebook facebook, Google google, LinkedIn linkedIn, ConnectionRepository connectionRepository) {
-	this.facebook = facebook;
-	this.connectionRepository = connectionRepository;
-	this.google = google;
-	this.linkedIn = linkedIn;
+    public BaseProvider(Google google, ConnectionRepository connectionRepository) {
+        this.connectionRepository = connectionRepository;
+        this.google = google;
     }
 
     protected void saveUserDetails(UserBean userBean) {
@@ -52,13 +48,6 @@ public class BaseProvider {
 	autologin.setSecuritycontext(userBean);
     }
 
-    public Facebook getFacebook() {
-	return facebook;
-    }
-
-    public void setFacebook(Facebook facebook) {
-	this.facebook = facebook;
-    }
 
     public ConnectionRepository getConnectionRepository() {
 	return connectionRepository;
@@ -76,12 +65,6 @@ public class BaseProvider {
 	this.google = google;
     }
 
-    public LinkedIn getLinkedIn() {
-	return linkedIn;
-    }
 
-    public void setLinkedIn(LinkedIn linkedIn) {
-	this.linkedIn = linkedIn;
-    }
 
 }
